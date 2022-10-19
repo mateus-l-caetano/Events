@@ -3,18 +3,21 @@ package com.mateus.events.viewModel
 import androidx.lifecycle.*
 import com.mateus.events.model.Event
 import com.mateus.events.repository.EventRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class EventViewModel(private val eventRepository: EventRepository): ViewModel() {
-    val events: MutableLiveData<String> = MutableLiveData<String>()
+    val _events = MutableLiveData<List<Event>>()
+    val events: LiveData<List<Event>> = _events
 
-    fun getEvents(): LiveData<String> {
+    init {
+        getEvents()
+    }
+
+    fun getEvents() {
         viewModelScope.launch {
             val response = eventRepository.getEvents()
-            events.value = response
+            _events.value = response
         }
-        return events
     }
 }
 
