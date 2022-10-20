@@ -40,40 +40,58 @@ class CheckinBottomSheetFragment : BottomSheetDialogFragment() {
         binding.bottomSheetDate.text = args.event.date
 
         binding.bottomSheetCheckinButton.setOnClickListener {
-            if(binding.nameInput.text.isNullOrBlank()) {
-                binding.nameInput.error = "campo obrigatório"
-                Toast.makeText(context, "Todos os campos precisam estar preenchidos", Toast.LENGTH_SHORT).show()
-            } else if (binding.emailInput.text.isNullOrBlank()) {
-                Toast.makeText(context, "Todos os campos precisam estar preenchidos", Toast.LENGTH_SHORT).show()
-                binding.emailInput.error = "campo obrigatório"
-            }
-            else {
-                it.isClickable = false
-                viewModel.checkin(
-                    Checkin(
-                        args.event.id,
-                        binding.nameInput.text.toString(),
-                        binding.emailInput.text.toString()
-                    )
-                )
-                viewModel.status.observe(viewLifecycleOwner) { state ->
-                    if (state == EventViewModel.State.SUCCSSESS) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Check-in realizado com sucesso",
-                            Toast.LENGTH_LONG
-                        ).show()
-                        findNavController().navigate(R.id.action_checkinBottomSheetFragment_to_homeFragment)
-                    } else if (state == EventViewModel.State.ERROR) {
-                        Toast.makeText(context, "Erro ao tentar fazer check-in", Toast.LENGTH_SHORT)
-                            .show()
-                        it.isClickable = true
-                    }
-                }
-            }
+            validateFildsAndPostCheckIn(it)
         }
 
         return binding.root
+    }
+
+    private fun validateFildsAndPostCheckIn(it: View) {
+        if (binding.nameInput.text.isNullOrBlank()) {
+            binding.nameInput.error = "campo obrigatório"
+            Toast.makeText(
+                context,
+                "Todos os campos precisam estar preenchidos",
+                Toast.LENGTH_SHORT
+            ).show()
+        } else if (binding.emailInput.text.isNullOrBlank()) {
+            Toast.makeText(
+                context,
+                "Todos os campos precisam estar preenchidos",
+                Toast.LENGTH_SHORT
+            ).show()
+            binding.emailInput.error = "campo obrigatório"
+        } else {
+            it.isClickable = false
+            viewModel.checkin(
+                Checkin(
+                    args.event.id,
+                    binding.nameInput.text.toString(),
+                    binding.emailInput.text.toString()
+                )
+            )
+            viewModel.status.observe(viewLifecycleOwner) { state ->
+                postCheckIn(state, it)
+            }
+        }
+    }
+
+    private fun postCheckIn(
+        state: EventViewModel.State?,
+        it: View
+    ) {
+        if (state == EventViewModel.State.SUCCSSESS) {
+            Toast.makeText(
+                requireContext(),
+                "Check-in realizado com sucesso",
+                Toast.LENGTH_LONG
+            ).show()
+            findNavController().navigate(R.id.action_checkinBottomSheetFragment_to_homeFragment)
+        } else if (state == EventViewModel.State.ERROR) {
+            Toast.makeText(context, "Erro ao tentar fazer check-in", Toast.LENGTH_SHORT)
+                .show()
+            it.isClickable = true
+        }
     }
 
     override fun onDestroyView() {
