@@ -3,15 +3,27 @@ package com.mateus.events.fragment
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
+import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import coil.load
 import com.mateus.events.R
 import com.mateus.events.databinding.FragmentEventDetailsBinding
+import com.mateus.events.model.Checkin
+import com.mateus.events.model.Event
+import com.mateus.events.network.EventApi
+import com.mateus.events.repository.EventRepository
+import com.mateus.events.viewModel.EventViewModel
+import com.mateus.events.viewModel.EventViewModel.State.*
+import com.mateus.events.viewModel.EventViewModelFactory
+import com.squareup.moshi.Json
+import kotlinx.parcelize.Parcelize
 import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -22,6 +34,9 @@ class EventDetailsFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val args: EventDetailsFragmentArgs by navArgs()
+
+    private lateinit var address: String
+    private lateinit var date: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +67,8 @@ class EventDetailsFragment : Fragment() {
 
         val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.getDefault())
         val timeFormat = SimpleDateFormat("E, HH:mm", Locale.getDefault())
-        binding.detailsDateText.text = dateFormat.format(timestamp)
+        date = dateFormat.format(timestamp)
+        binding.detailsDateText.text = date
         binding.detailsTimeText.text = timeFormat.format(timestamp)
 
         val latitude = args.event.latitude.toDouble()
@@ -62,8 +78,9 @@ class EventDetailsFragment : Fragment() {
 
         if(location != null) {
             if (location.featureName != null){
+                address = location.getAddressLine(0)
                 binding.detailsLocationText.text = location.featureName
-                binding.detailsAddresText.text = location.getAddressLine(0)
+                binding.detailsAddresText.text = address
             }
             else {
                 binding.detailsLocationText.text = location.getAddressLine(0)
@@ -74,6 +91,22 @@ class EventDetailsFragment : Fragment() {
             binding.detailsAddresText.text = ""
         }
 
+        binding.checkinButton.setOnClickListener {
+            val action = EventDetailsFragmentDirections
+                .actionEventDetailsFragmentToCheckinBottomSheetFragment(
+                    EventBottomSheetData(args.event.id, args.event.title, date, address)
+                )
+            findNavController().navigate(action)
+        }
+
         return view
     }
 }
+
+@Parcelize
+data class EventBottomSheetData (
+    val id: Int,
+    val title: String,
+    val date: String,
+    val address: String,
+) : Parcelable

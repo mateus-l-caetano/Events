@@ -27,5 +27,22 @@
         <argument
             android:name="event"
             app:argType="com.mateus.events.model.Event" />
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_checkinBottomSheetFragment"
+            app:destination="@id/checkinBottomSheetFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/checkinBottomSheetFragment"
+        android:name="com.mateus.events.fragment.CheckinBottomSheetFragment"
+        android:label="fragment_checkin_bottom_sheet"
+        tools:layout="@layout/fragment_checkin_bottom_sheet" >
+        <argument
+            android:name="event"
+            app:argType="com.mateus.events.fragment.EventBottomSheetData" />
+        <action
+            android:id="@+id/action_checkinBottomSheetFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="true" />
+    </dialog>
 </navigation>

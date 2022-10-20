@@ -9,6 +9,8 @@
         <entry key="app/src/main/res/drawable/image_placeholder.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2775" />
         <entry key="app/src/main/res/layout/event_list_item.xml" value="0.23664398193359373" />
+        <entry key="app/src/main/res/layout/fragment_checkin_bottom_sheet.xml" value="0.30854700854700856" />
+        <entry key="app/src/main/res/layout/fragment_checkin_bottom_sheet_item.xml" value="0.30854700854700856" />
         <entry key="app/src/main/res/layout/fragment_event_details.xml" value="0.33" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.25" />
       </map>
