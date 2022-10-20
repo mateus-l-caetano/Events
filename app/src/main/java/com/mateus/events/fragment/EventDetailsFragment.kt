@@ -1,12 +1,14 @@
 package com.mateus.events.fragment
 
 import android.location.Geocoder
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.navArgs
+import androidx.transition.TransitionInflater
 import coil.load
 import com.mateus.events.R
 import com.mateus.events.databinding.FragmentEventDetailsBinding
@@ -19,7 +21,7 @@ class EventDetailsFragment : Fragment() {
     private var _binding: FragmentEventDetailsBinding? = null
     private val binding get() = _binding!!
 
-    val args: EventDetailsFragmentArgs by navArgs()
+    private val args: EventDetailsFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +33,18 @@ class EventDetailsFragment : Fragment() {
         val format = NumberFormat.getCurrencyInstance()
         format.currency = Currency.getInstance("BRL")
 
-        binding.imageView.load(args.event.imageUrl) {
+        binding.cardImage.load(args.event.imageUrl) {
             placeholder(R.drawable.image_placeholder)
             error(R.drawable.error_image)
         }
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            binding.cardImage.transitionName = "details_image"
+            val transition = TransitionInflater.from(requireContext())
+                .inflateTransition(android.R.transition.slide_bottom)
+            sharedElementEnterTransition = transition
+        }
+
         binding.detailsTitle.text = args.event.title
         binding.detailsDescription.text = args.event.description
         binding.detailsPrice.text = format.format(args.event.price.toBigDecimal())

@@ -1,11 +1,13 @@
 package com.mateus.events.adapter
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.mateus.events.R
@@ -30,10 +32,17 @@ class EventAdapter(private val dataSet: List<Event>): RecyclerView.Adapter<Event
             placeholder(R.drawable.image_placeholder)
             error(R.drawable.error_image)
         }
-        holder.view.setOnClickListener { view ->
-            val action = HomeFragmentDirections.actionHomeFragmentToEventDetailsFragment(dataSet[position])
-            view.findNavController().navigate(action)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            holder.image.transitionName = "item_image"
         }
+        holder.view.setOnClickListener { view ->
+            val extras = FragmentNavigatorExtras(holder.image to "details_image")
+            val action = HomeFragmentDirections.actionHomeFragmentToEventDetailsFragment(dataSet[position])
+            view.findNavController().navigate(
+                action, extras
+            )
+        }
+
     }
 
     override fun getItemCount() = dataSet.size

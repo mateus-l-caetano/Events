@@ -9,7 +9,7 @@
     android:layout_marginHorizontal="8dp"
     >
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/card_image"
         android:layout_width="0dp"
         android:layout_height="160dp"
         android:contentDescription="banner do evento"
@@ -30,7 +30,7 @@
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/card_image"
         tools:text="Nome do evento" />
 
     <ImageButton
