@@ -1,7 +1,6 @@
 package com.mateus.events.fragment
 
 import android.location.Geocoder
-import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,7 +13,6 @@ import com.mateus.events.databinding.FragmentEventDetailsBinding
 import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
-import java.time.*
 import java.util.*
 
 class EventDetailsFragment : Fragment() {
@@ -26,7 +24,7 @@ class EventDetailsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentEventDetailsBinding.inflate(inflater, container, false)
         val view = binding.root
 
@@ -39,7 +37,7 @@ class EventDetailsFragment : Fragment() {
         }
         binding.detailsTitle.text = args.event.title
         binding.detailsDescription.text = args.event.description
-        binding.detailsPrice.text = "${format.format(args.event.price.toBigDecimal())}"
+        binding.detailsPrice.text = format.format(args.event.price.toBigDecimal())
         val timestamp = Timestamp(args.event.date.toLong())
 
         val dateFormat = SimpleDateFormat("d MMMM yyyy", Locale.getDefault())
@@ -54,11 +52,11 @@ class EventDetailsFragment : Fragment() {
 
         if(location != null) {
             if (location.featureName != null){
-                binding.detailsLocationText.text = "${location?.featureName}"
-                binding.detailsAddresText.text = "${location?.getAddressLine(0)}"
+                binding.detailsLocationText.text = location.featureName
+                binding.detailsAddresText.text = location.getAddressLine(0)
             }
             else {
-                binding.detailsLocationText.text = "${location?.getAddressLine(0)}"
+                binding.detailsLocationText.text = location.getAddressLine(0)
                 binding.detailsAddresText.text = ""
             }
         } else {
