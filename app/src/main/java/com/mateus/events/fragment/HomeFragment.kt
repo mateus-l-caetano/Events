@@ -32,7 +32,7 @@ class HomeFragment : Fragment() {
         viewModel = EventViewModelFactory(repository).create(EventViewModel::class.java)
 
         viewModel.events.observe(viewLifecycleOwner) { events ->
-            adapter = EventAdapter(events)
+            adapter = EventAdapter(events.reversed())
             binding.homeScreenRecyclerView.adapter = adapter
         }
 

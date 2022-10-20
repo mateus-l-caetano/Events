@@ -1,6 +1,5 @@
 package com.mateus.events.repository
 
-import androidx.lifecycle.LiveData
 import com.mateus.events.model.Event
 import com.mateus.events.network.EventsApiService
 

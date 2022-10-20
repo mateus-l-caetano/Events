@@ -8,6 +8,19 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.mateus.events.fragment.HomeFragment"
-        android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        android:label="Eventos"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_eventDetailsFragment"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="com.mateus.events.fragment.EventDetailsFragment"
+        android:label="Detalhes"
+        tools:layout="@layout/fragment_event_details" >
+        <argument
+            android:name="event"
+            app:argType="com.mateus.events.model.Event" />
+    </fragment>
 </navigation>

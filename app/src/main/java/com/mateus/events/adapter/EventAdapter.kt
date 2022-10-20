@@ -1,24 +1,21 @@
 package com.mateus.events.adapter
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.mateus.events.R
+import com.mateus.events.fragment.HomeFragmentDirections
 import com.mateus.events.model.Event
 
 class EventAdapter(private val dataSet: List<Event>): RecyclerView.Adapter<EventAdapter.ViewHolder>() {
-    class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
-        val title: TextView
-        val image: ImageView
-        init {
-            title = view.findViewById(R.id.card_title)
-            image = view.findViewById(R.id.card_image)
-        }
+    class ViewHolder(val view: View): RecyclerView.ViewHolder(view) {
+        val title: TextView = view.findViewById(R.id.card_title)
+        val image: ImageView = view.findViewById(R.id.card_image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -29,7 +26,14 @@ class EventAdapter(private val dataSet: List<Event>): RecyclerView.Adapter<Event
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.title.text = dataSet[position].title
-        holder.image.load(dataSet[position].imageUrl)
+        holder.image.load(dataSet[position].imageUrl) {
+            placeholder(R.drawable.image_placeholder)
+            error(R.drawable.error_image)
+        }
+        holder.view.setOnClickListener { view ->
+            val action = HomeFragmentDirections.actionHomeFragmentToEventDetailsFragment(dataSet[position])
+            view.findNavController().navigate(action)
+        }
     }
 
     override fun getItemCount() = dataSet.size
