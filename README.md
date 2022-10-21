@@ -9,6 +9,12 @@
 Faça check-in em eventos de forma fácil e rápida.
 </h3>
 
+## Preview
+
+| Home Screen | Events Details Screen | Check-in Screen |
+|---|---|---|
+| ![home](https://github.com/mateus-l-caetano/Events/blob/master/preview/home.jpg) | ![details](https://github.com/mateus-l-caetano/Events/blob/master/preview/home.jpg) | ![checkin](https://github.com/mateus-l-caetano/Events/blob/master/preview/details.jpg) |
+
 ## Funcionalidades
 
 - Lista de eventos.
