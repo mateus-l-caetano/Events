@@ -47,6 +47,7 @@ dependencies {
     def nav_version = "2.5.2"
     def retrofit_version = "2.9.0"
     def lifecycle_version = "2.6.0-alpha02"
+    def lottieVersion = "3.4.0"
 
     // navigation component
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -74,6 +75,9 @@ dependencies {
 
     // Coil
     implementation "io.coil-kt:coil:1.1.1"
+
+    //lottie
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'

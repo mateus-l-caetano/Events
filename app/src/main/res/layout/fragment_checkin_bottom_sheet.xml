@@ -79,15 +79,38 @@
             />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/bottom_sheet_checkin_button"
+        android:text="check-in"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/email_input_layout"
+        app:cardBackgroundColor="@color/purple_500"
         android:layout_marginVertical="16dp"
-        android:text="finalizar"
-        />
+        >
+        <TextView
+            android:id="@+id/checkin_button_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="check-in"
+            style="@style/TextAppearance.MaterialComponents.Button"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/checkin_button_animation"
+            android:layout_width="wrap_content"
+            android:layout_height="80dp"
+            app:lottie_rawRes="@raw/circular_loading"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            />
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

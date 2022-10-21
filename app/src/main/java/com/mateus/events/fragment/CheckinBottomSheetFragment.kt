@@ -40,6 +40,8 @@ class CheckinBottomSheetFragment : BottomSheetDialogFragment() {
         binding.bottomSheetDate.text = args.event.date
 
         binding.bottomSheetCheckinButton.setOnClickListener {
+            binding.checkinButtonText.visibility = View.INVISIBLE
+            binding.checkinButtonAnimation.visibility = View.VISIBLE
             validateFildsAndPostCheckIn(it)
         }
 
@@ -49,17 +51,11 @@ class CheckinBottomSheetFragment : BottomSheetDialogFragment() {
     private fun validateFildsAndPostCheckIn(it: View) {
         if (binding.nameInput.text.isNullOrBlank()) {
             binding.nameInput.error = "campo obrigatório"
-            Toast.makeText(
-                context,
-                "Todos os campos precisam estar preenchidos",
-                Toast.LENGTH_SHORT
-            ).show()
+            binding.checkinButtonText.visibility = View.VISIBLE
+            binding.checkinButtonAnimation.visibility = View.INVISIBLE
         } else if (binding.emailInput.text.isNullOrBlank()) {
-            Toast.makeText(
-                context,
-                "Todos os campos precisam estar preenchidos",
-                Toast.LENGTH_SHORT
-            ).show()
+            binding.checkinButtonText.visibility = View.VISIBLE
+            binding.checkinButtonAnimation.visibility = View.INVISIBLE
             binding.emailInput.error = "campo obrigatório"
         } else {
             it.isClickable = false
@@ -91,6 +87,8 @@ class CheckinBottomSheetFragment : BottomSheetDialogFragment() {
             Toast.makeText(context, "Erro ao tentar fazer check-in", Toast.LENGTH_SHORT)
                 .show()
             it.isClickable = true
+            binding.checkinButtonText.visibility = View.VISIBLE
+            binding.checkinButtonAnimation.visibility = View.INVISIBLE
         }
     }
 

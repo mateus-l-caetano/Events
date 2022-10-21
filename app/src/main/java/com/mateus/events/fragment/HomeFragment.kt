@@ -10,6 +10,7 @@ import com.mateus.events.databinding.FragmentHomeBinding
 import com.mateus.events.network.EventApi
 import com.mateus.events.repository.EventRepository
 import com.mateus.events.viewModel.EventViewModel
+import com.mateus.events.viewModel.EventViewModel.State
 import com.mateus.events.viewModel.EventViewModelFactory
 
 class HomeFragment : Fragment() {
@@ -34,6 +35,15 @@ class HomeFragment : Fragment() {
         viewModel.events.observe(viewLifecycleOwner) { events ->
             adapter = EventAdapter(events.reversed())
             binding.homeScreenRecyclerView.adapter = adapter
+        }
+
+        viewModel.status.observe(viewLifecycleOwner) { state ->
+            if(state == State.SUCCSSESS) {
+                binding.loadingImage.visibility = View.INVISIBLE
+                binding.homeScreenRecyclerView.visibility = View.VISIBLE
+            } else if(state == State.ERROR) {
+
+            }
         }
 
         return view
