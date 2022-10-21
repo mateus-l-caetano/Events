@@ -3,7 +3,6 @@ package com.mateus.events.fragment
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
-import android.os.Parcelable
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
 import coil.load
+import coil.request.ImageRequest
 import com.mateus.events.R
 import com.mateus.events.databinding.FragmentEventDetailsBinding
-import kotlinx.parcelize.Parcelize
+import com.mateus.events.model.EventBottomSheetData
 import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -37,28 +37,40 @@ class EventDetailsFragment : Fragment() {
         val view = binding.root
 
         binding.cardImage.load(args.event.imageUrl) {
-            placeholder(R.drawable.image_placeholder)
-            error(R.drawable.error_image)
+            setCardImage()
         }
 
+        setEnterTransition()
+
+        setLayoutTexts()
+
+        binding.checkinButton.setOnClickListener {
+            setCheckinButtonAction()
+        }
+
+        return view
+    }
+
+    private fun setCheckinButtonAction() {
+        val action = EventDetailsFragmentDirections
+            .actionEventDetailsFragmentToCheckinBottomSheetFragment(
+                EventBottomSheetData(args.event.id, args.event.title, date, address)
+            )
+        findNavController().navigate(action)
+    }
+
+    private fun setEnterTransition() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             binding.cardImage.transitionName = "details_image"
             val transition = TransitionInflater.from(requireContext())
                 .inflateTransition(android.R.transition.slide_bottom)
             sharedElementEnterTransition = transition
         }
+    }
 
-        setLayoutTexts()
-
-        binding.checkinButton.setOnClickListener {
-            val action = EventDetailsFragmentDirections
-                .actionEventDetailsFragmentToCheckinBottomSheetFragment(
-                    EventBottomSheetData(args.event.id, args.event.title, date, address)
-                )
-            findNavController().navigate(action)
-        }
-
-        return view
+    private fun ImageRequest.Builder.setCardImage() {
+        placeholder(R.drawable.image_placeholder)
+        error(R.drawable.error_image)
     }
 
     private fun setLayoutTexts() {
@@ -95,11 +107,3 @@ class EventDetailsFragment : Fragment() {
         }
     }
 }
-
-@Parcelize
-data class EventBottomSheetData (
-    val id: Int,
-    val title: String,
-    val date: String,
-    val address: String,
-) : Parcelable
