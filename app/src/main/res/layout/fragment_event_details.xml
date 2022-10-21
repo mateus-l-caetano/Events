@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.mateus.events.fragment.EventDetailsFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="8dp"
+    app:layoutDescription="@xml/fragment_event_details_scene"
+    tools:context="com.mateus.events.fragment.EventDetailsFragment"
     >
+
     <ImageView
         android:id="@+id/card_image"
         android:layout_width="0dp"
@@ -17,192 +18,190 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_launcher_foreground"
-        />
-
-    <TextView
-        android:id="@+id/details_title"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="16dp"
-        android:textSize="32sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/card_image"
-        tools:text="Nome do evento" />
-
-    <ImageButton
-        android:id="@+id/date_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/details_date"
-        app:layout_constraintBottom_toBottomOf="@id/details_date"
-        android:src="@drawable/ic_calendar"
-        android:layout_marginHorizontal="16dp"
-        />
-
-    <LinearLayout
-        android:id="@+id/details_date"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/date_image"
-        app:layout_constraintTop_toBottomOf="@+id/details_title"
-        android:orientation="vertical"
-        android:layout_marginVertical="8dp"
-        android:layout_marginLeft="16dp"
-        >
-
-        <TextView
-            android:id="@+id/details_date_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="25 de novembro de 2022"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/date_image"
-            app:layout_constraintTop_toBottomOf="@+id/details_title"
-            />
-
-        <TextView
-            android:id="@+id/details_time_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="quarta-feira, 09:00"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_date"
-            />
-
-    </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/location_image"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/details_location"
-        app:layout_constraintBottom_toBottomOf="@id/details_location"
-        android:src="@drawable/ic_location"
-        android:layout_marginHorizontal="16dp"
-        />
-
-    <LinearLayout
-        android:id="@+id/details_location"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/location_image"
-        app:layout_constraintTop_toBottomOf="@+id/details_date"
-        android:orientation="vertical"
-        android:layout_marginVertical="8dp"
-        android:layout_marginLeft="16dp"
-        >
-
-        <TextView
-            android:id="@+id/details_location_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Centro de eventos"
-            style="@style/TextAppearance.MaterialComponents.Headline6"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/date_image"
-            app:layout_constraintTop_toBottomOf="@+id/details_title"
-            />
-
-        <TextView
-            android:id="@+id/details_addres_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Av. Fictícia 321, CE"
-            style="@style/TextAppearance.MaterialComponents.Subtitle1"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/details_date"
-            />
-
-    </LinearLayout>
+        app:layout_constraintBottom_toTopOf="@id/scrollView"
+        tools:srcCompat="@drawable/ic_launcher_foreground" />
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintTop_toBottomOf="@id/details_location"
+        app:layout_constraintTop_toBottomOf="@id/card_image"
         app:layout_constraintBottom_toTopOf="@id/checkin"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginVertical="8dp"
-        >
-        <LinearLayout
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="8dp"
             >
+
             <TextView
-                android:layout_width="match_parent"
+                android:id="@+id/details_title"
+                style="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="Sobre o evento"
+                android:gravity="center"
+                android:padding="16dp"
+                android:textSize="32sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Nome do evento" />
+
+            <ImageButton
+                android:id="@+id/date_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="16dp"
+                android:src="@drawable/ic_calendar"
+                app:layout_constraintBottom_toBottomOf="@id/details_date"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/details_date" />
+
+            <LinearLayout
+                android:id="@+id/details_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/date_image"
+                app:layout_constraintTop_toBottomOf="@+id/details_title">
+
+                <TextView
+                    android:id="@+id/details_date_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/date_image"
+                    app:layout_constraintTop_toBottomOf="@+id/details_title"
+                    tools:text="25 de novembro de 2022" />
+
+                <TextView
+                    android:id="@+id/details_time_text"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/details_date"
+                    tools:text="quarta-feira, 09:00" />
+
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/location_image"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginHorizontal="16dp"
+                android:src="@drawable/ic_location"
+                app:layout_constraintBottom_toBottomOf="@id/details_location"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/details_location" />
+
+            <LinearLayout
+                android:id="@+id/details_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="8dp"
+                android:layout_marginLeft="16dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/location_image"
+                app:layout_constraintTop_toBottomOf="@+id/details_date">
+
+                <TextView
+                    android:id="@+id/details_location_text"
+                    style="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/date_image"
+                    app:layout_constraintTop_toBottomOf="@+id/details_title"
+                    tools:text="Centro de eventos" />
+
+                <TextView
+                    android:id="@+id/details_addres_text"
+                    style="@style/TextAppearance.MaterialComponents.Subtitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/details_date"
+                    tools:text="Av. Fictícia 321, CE" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/details_description_title"
                 style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details_location"
                 android:layout_marginVertical="16dp"
+                android:text="Sobre o evento"
                 />
 
             <TextView
                 android:id="@+id/details_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae est vel urna accumsan mollis. Ut ut elementum erat, id vehicula justo. Nunc varius rutrum eros ut tempus. Ut vel pellentesque diam. Fusce venenatis finibus varius. Vivamus congue, metus et auctor scelerisque, erat odio ultrices mi, ut interdum risus orci non ex. Quisque efficitur pharetra efficitur. Praesent et maximus risus. Aliquam finibus egestas nisl eu condimentum. Cras mollis justo vel sapien fringilla, vel gravida urna consectetur. Fusce porta lectus sit amet nisl pulvinar dictum. Mauris vitae tellus tincidunt, finibus massa in, aliquam lorem."
                 style="@style/TextAppearance.MaterialComponents.Body1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/details_description_title"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus vitae est vel urna accumsan mollis. Ut ut elementum erat, id vehicula justo. Nunc varius rutrum eros ut tempus. Ut vel pellentesque diam. Fusce venenatis finibus varius. Vivamus congue, metus et auctor scelerisque, erat odio ultrices mi, ut interdum risus orci non ex. Quisque efficitur pharetra efficitur. Praesent et maximus risus. Aliquam finibus egestas nisl eu condimentum. Cras mollis justo vel sapien fringilla, vel gravida urna consectetur. Fusce porta lectus sit amet nisl pulvinar dictum. Mauris vitae tellus tincidunt, finibus massa in, aliquam lorem."
                 />
-        </LinearLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/checkin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="@dimen/cardview_default_elevation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:cardCornerRadius="10dp"
-        android:layout_marginBottom="8dp"
-        app:cardElevation="@dimen/cardview_default_elevation"
-        >
+        app:layout_constraintStart_toStartOf="parent">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        >
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp">
 
-        <TextView
-            android:id="@+id/details_price"
-            style="@style/TextAppearance.Material3.HeadlineSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            tools:text="R$29,99"
-            android:gravity="center"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:padding="16dp"
-            />
+            <TextView
+                android:id="@+id/details_price"
+                style="@style/TextAppearance.Material3.HeadlineSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:padding="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="R$29,99" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/checkin_button"
-            android:layout_width="150dp"
-            android:layout_height="match_parent"
-            android:text="check-in"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/checkin_button"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:text="check-in"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
