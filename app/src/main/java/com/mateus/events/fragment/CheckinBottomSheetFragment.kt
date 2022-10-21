@@ -1,6 +1,7 @@
 package com.mateus.events.fragment
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import android.view.View
@@ -49,14 +50,13 @@ class CheckinBottomSheetFragment : BottomSheetDialogFragment() {
     }
 
     private fun validateFildsAndPostCheckIn(it: View) {
-        if (binding.nameInput.text.isNullOrBlank()) {
-            binding.nameInput.error = "campo obrigatório"
-            binding.checkinButtonText.visibility = View.VISIBLE
-            binding.checkinButtonAnimation.visibility = View.INVISIBLE
-        } else if (binding.emailInput.text.isNullOrBlank()) {
-            binding.checkinButtonText.visibility = View.VISIBLE
-            binding.checkinButtonAnimation.visibility = View.INVISIBLE
-            binding.emailInput.error = "campo obrigatório"
+        if(binding.nameInput.text.isNullOrBlank() ||
+            binding.emailInput.text.isNullOrBlank() ||
+            !Patterns.EMAIL_ADDRESS
+                .matcher(binding.emailInput.text.toString()).matches()) {
+
+            validateTextFields()
+
         } else {
             it.isClickable = false
             viewModel.checkin(
@@ -69,6 +69,25 @@ class CheckinBottomSheetFragment : BottomSheetDialogFragment() {
             viewModel.status.observe(viewLifecycleOwner) { state ->
                 postCheckIn(state, it)
             }
+        }
+    }
+
+    private fun validateTextFields() {
+        binding.checkinButtonText.visibility = View.VISIBLE
+        binding.checkinButtonAnimation.visibility = View.INVISIBLE
+
+        if (binding.nameInput.text.isNullOrBlank()) {
+            binding.nameInput.error = "Campo obrigatório"
+        }
+
+        if (binding.emailInput.text.isNullOrBlank()) {
+            binding.emailInput.error = "Campo obrigatório"
+        }
+
+        else if (!Patterns.EMAIL_ADDRESS
+                .matcher(binding.emailInput.text.toString()).matches()
+        ) {
+            binding.emailInput.error = "Insira um email válido"
         }
     }
 
