@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
+import com.mateus.events.R
 import com.mateus.events.adapter.EventAdapter
 import com.mateus.events.databinding.FragmentHomeBinding
 import com.mateus.events.network.EventApi
@@ -42,7 +44,7 @@ class HomeFragment : Fragment() {
                 binding.loadingImage.visibility = View.INVISIBLE
                 binding.homeScreenRecyclerView.visibility = View.VISIBLE
             } else if(state == State.ERROR) {
-
+                findNavController().navigate(R.id.action_homeFragment_to_loadingErrorFragment)
             }
         }
 
