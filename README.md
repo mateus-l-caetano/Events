@@ -18,7 +18,7 @@ Faça check-in em eventos de forma fácil e rápida.
 
 ## Como usar
 
-Você pode fazer o download no arquivo `.apk` e instalar em seu smartphone [clicando aqui](https://drive.google.com/file/d/1xTCQIE3hVvUmaaHim4Fgvx6bVfhFElta/view?usp=sharing).
+Você pode fazer o download no arquivo `.apk` e instalar em seu smartphone [clicando aqui](https://drive.google.com/file/d/1TgEdTr3OET_xR_MaaT632D3x2PDshMBS/view?usp=sharing).
 
 Também é possível utilizar o Events baixando e compilando o código fonte.
 
