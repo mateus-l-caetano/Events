@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:clipToPadding="false"
     android:padding="16dp"
-    tools:context=".fragment.CheckinBottomSheetFragment">
+    tools:context=".presenter.fragment.CheckinBottomSheetFragment">
 
     <TextView
         android:id="@+id/bottom_sheet_title"

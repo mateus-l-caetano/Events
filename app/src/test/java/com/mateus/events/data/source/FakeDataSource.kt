@@ -1,8 +1,8 @@
 package com.mateus.events.data.source
 
-import com.mateus.events.model.Checkin
-import com.mateus.events.model.Event
-import com.mateus.events.network.EventsApiService
+import com.mateus.events.domain.model.Checkin
+import com.mateus.events.domain.model.Event
+import com.mateus.events.data.network.EventsApiService
 import okhttp3.MediaType
 import okhttp3.ResponseBody
 import retrofit2.Response

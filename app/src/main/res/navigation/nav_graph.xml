@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.mateus.events.fragment.HomeFragment"
+        android:name="com.mateus.events.presenter.fragment.HomeFragment"
         android:label="Eventos"
         tools:layout="@layout/fragment_home" >
         <action
@@ -26,24 +26,24 @@
     </fragment>
     <fragment
         android:id="@+id/eventDetailsFragment"
-        android:name="com.mateus.events.fragment.EventDetailsFragment"
+        android:name="com.mateus.events.presenter.fragment.EventDetailsFragment"
         android:label="Detalhes"
         tools:layout="@layout/fragment_event_details" >
         <argument
             android:name="event"
-            app:argType="com.mateus.events.model.Event" />
+            app:argType="com.mateus.events.domain.model.Event" />
         <action
             android:id="@+id/action_eventDetailsFragment_to_checkinBottomSheetFragment"
             app:destination="@id/checkinBottomSheetFragment" />
     </fragment>
     <dialog
         android:id="@+id/checkinBottomSheetFragment"
-        android:name="com.mateus.events.fragment.CheckinBottomSheetFragment"
+        android:name="com.mateus.events.presenter.fragment.CheckinBottomSheetFragment"
         android:label="fragment_checkin_bottom_sheet"
         tools:layout="@layout/fragment_checkin_bottom_sheet" >
         <argument
             android:name="event"
-            app:argType="com.mateus.events.model.EventBottomSheetData" />
+            app:argType="com.mateus.events.domain.model.EventBottomSheetData" />
         <action
             android:id="@+id/action_checkinBottomSheetFragment_to_homeFragment"
             app:destination="@id/homeFragment"
@@ -52,7 +52,7 @@
     </dialog>
     <fragment
         android:id="@+id/loadingErrorFragment"
-        android:name="com.mateus.events.fragment.LoadingErrorFragment"
+        android:name="com.mateus.events.presenter.fragment.LoadingErrorFragment"
         android:label="fragment_loading_error"
         tools:layout="@layout/fragment_loading_error" >
         <action

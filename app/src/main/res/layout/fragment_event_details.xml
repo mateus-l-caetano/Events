@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_marginHorizontal="8dp"
     app:layoutDescription="@xml/fragment_event_details_scene"
-    tools:context="com.mateus.events.fragment.EventDetailsFragment"
+    tools:context="com.mateus.events.presenter.fragment.EventDetailsFragment"
     >
 
     <ImageView

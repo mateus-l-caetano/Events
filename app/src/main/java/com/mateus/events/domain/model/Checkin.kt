@@ -1,7 +1,7 @@
-package com.mateus.events.model
+package com.mateus.events.domain.model
 
 data class Checkin(
-    val id: Int,
+    val id: String,
     val name: String,
     val email: String,
 )

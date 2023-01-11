@@ -1,5 +1,6 @@
-package com.mateus.events.fragment
+package com.mateus.events.presenter.fragment
 
+import android.location.Address
 import android.location.Geocoder
 import android.os.Build
 import android.os.Bundle
@@ -7,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.transition.TransitionInflater
@@ -14,12 +16,14 @@ import coil.load
 import coil.request.ImageRequest
 import com.mateus.events.R
 import com.mateus.events.databinding.FragmentEventDetailsBinding
-import com.mateus.events.model.EventBottomSheetData
+import com.mateus.events.domain.model.EventBottomSheetData
+import dagger.hilt.android.AndroidEntryPoint
 import java.sql.Timestamp
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
+@AndroidEntryPoint
 class EventDetailsFragment : Fragment() {
     private var _binding: FragmentEventDetailsBinding? = null
     private val binding get() = _binding!!
@@ -34,7 +38,11 @@ class EventDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentEventDetailsBinding.inflate(inflater, container, false)
-        val view = binding.root
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         binding.cardImage.load(args.event.imageUrl) {
             setCardImage()
@@ -47,8 +55,6 @@ class EventDetailsFragment : Fragment() {
         binding.checkinButton.setOnClickListener {
             setCheckinButtonAction()
         }
-
-        return view
     }
 
     private fun setCheckinButtonAction() {
@@ -81,7 +87,12 @@ class EventDetailsFragment : Fragment() {
         val latitude = args.event.latitude.toDouble()
         val longitude = args.event.longitude.toDouble()
         val geocoder = Geocoder(requireContext(), Locale.getDefault())
-        val location = geocoder.getFromLocation(latitude, longitude, 1)?.get(0)
+        var location: Address? = null
+        try {
+            location = geocoder.getFromLocation(latitude, longitude, 1)?.get(0)
+        } catch (e: Exception) {
+            Toast.makeText(context, "Ocorreu um erro ao buscar o endereço", Toast.LENGTH_LONG).show()
+        }
 
         format.currency = Currency.getInstance("BRL")
         date = dateFormat.format(timestamp)
@@ -105,5 +116,10 @@ class EventDetailsFragment : Fragment() {
             binding.detailsLocationText.text = "Localização temporariamente indisponível"
             binding.detailsAddresText.text = ""
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

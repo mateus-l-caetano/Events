@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Events"
         tools:targetApi="31"
-        android:name="androidx.multidex.MultiDexApplication">
+        android:name=".EventsApplication">
         <activity
             android:name=".MainActivity"
             android:exported="true">

@@ -3,9 +3,11 @@ package com.mateus.events.viewModel
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.mateus.events.data.source.FakeDataSource
-import com.mateus.events.model.Checkin
-import com.mateus.events.model.Event
-import com.mateus.events.repository.EventRepository
+import com.mateus.events.domain.model.Checkin
+import com.mateus.events.domain.model.Event
+import com.mateus.events.presenter.viewModel.EventViewModel
+import com.mateus.events.presenter.viewModel.EventViewModelFactory
+import com.mateus.events.data.repository.EventRepository
 import getOrAwaitValue
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.CoreMatchers.nullValue
